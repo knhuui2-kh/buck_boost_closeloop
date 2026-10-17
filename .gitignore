@@ -1,0 +1,53 @@
+# CubeMX CMake 工程的忽略规则。
+#
+# 需要提交的内容：Core/、cmake/、Drivers/、startup_stm32g474xx.s、
+# STM32G474xx_FLASH.ld、CMakeLists.txt、CMakePresets.json、.ioc、.mxproject、README.md
+# （.mxproject 记录 CubeMX 上次生成了哪些文件，团队共用可避免生成结果不一致。）
+
+# ---- 构建产物 ----
+build/
+*.o
+*.d
+*.elf
+*.hex
+*.bin
+*.map
+*.su
+*.lst
+
+# ---- CMake / Ninja 中间文件（正常都在 build/ 内，防止在源码树里直接配置）----
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+build.ninja
+rules.ninja
+.ninja_deps
+.ninja_log
+compile_commands.json
+
+# ---- CubeMX 备份 ----
+*.ioc.bak
+*.mxproject.bak
+Backup/
+
+# ---- 编辑器与调试工具 ----
+.vscode/
+.idea/
+*.uvguix.*
+*.uvoptx
+*.uvprojx
+JLinkLog.txt
+openocd.log
+
+# ---- 系统文件 ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 第三方库（可选）----
+# Drivers/ 是 ST 的 HAL 与 CMSIS，约 90 个文件。
+# 默认提交：clone 后无需 CubeMX 即可编译，也保证各人的 HAL 版本一致。
+# 若在意仓库体积，取消下一行注释；此后每个人都要用 .ioc 中记录的固件包版本
+# （ProjectManager.FirmwarePackage）重新生成一次。
+# /Drivers/
